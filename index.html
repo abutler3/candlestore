@@ -44,7 +44,6 @@
         	<ul class="nav navbar-nav navbar-right">
         		<li>{{#link-to 'index' class="active"}}HOME{{/link-to}}</li>
         		<li>{{#link-to 'contacts'}}CONTACTS{{/link-to}}</li>
-						<li>{{#link-to 'about'}}ABOUT{{/link-to}}</li>
 						<li>{{#link-to 'products'}}PRODUCTS{{/link-to}}</li>
       		</ul>
         </div><!--/.navbar-collapse -->
@@ -72,7 +71,7 @@
 		<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
 
 	</script>
-	<script type='text/x-handlebars' id='about'>
+	<script type='text/x-handlebars' id='contacts/index'>
 		<h1>What are Candles Are Me about?</h1>
 		<p>My name is {{contactName}}</p>
     <img {{bind-attr src='avatar'}} alt='Avatar' width="200" />
@@ -90,20 +89,20 @@
     <p>This site would not be possible without the hardworking Ember Core Team!</p>
   </script>
 	<script type='text/x-handlebars' data-template-name='products'>
-		<h1>My Products</h1>
-		<ul class="list-unstyled col-md-8">
-		{{#each}}
-			<li class="row">
-				<img {{bind-attr src='image'}} class='img-thumbnail col-md-5'>
-				<div class="col-md-7">
-					<h2>{{title}}</h2>
-					<p class="product-description">{{description}}</p>
-					<p>{{#link-to 'product' this class='btn btn-success' tagName='button'}}Buy for ${{price}}{{/link-to}}</p>
-
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="list-group">
+					{{#each}}
+						{{#link-to 'product' this classNames="list-group-item"}}
+							{{title}}
+						{{/link-to}}
+					{{/each}}
 				</div>
-			</li>
-		{{/each}}
-		</ul>
+			</div>
+			<div class="col-sm-9">
+				{{outlet}}
+			</div>
+		</div>
 	</script>
 	<script type='text/x-handlebars' data-template-name='product'>
 		<div class="row">
@@ -119,17 +118,20 @@
 	</script>
 	 <script type='text/x-handlebars' data-template-name='contacts'>
     <h1>Contacts</h1>
-    <ul class='list-unstyled'>
-    {{#each}}
-      <li class='row'>
-        <img {{bind-attr src='avatar' alt='name'}} class='img-thumbnail col-sm-5'/>
-        <div class='col-sm-7'>
-          <h2>{{#link-to 'contact' this}}{{name}}{{/link-to}}</h2>
-          <p>{{about}}</p>
-        </div>
-      </li>
-    {{/each}}
-    </ul>
+		<div class='row'>
+      <div class='col-sm-9'>
+        {{outlet}}
+      </div>
+    	<div class='col-sm-3'>
+        <div class='list-group'>
+					{{#each}}
+			      {{#link-to 'contact' this classNames='list-group-item'}}
+			        {{name}}
+			      {{/link-to}}
+			    {{/each}}
+				</div>
+			</div>
+		</div>
 	</script>
 	<script type='text/x-handlebars' data-template-name='contact'>
   <div class='row'>
@@ -142,5 +144,9 @@
     </div>
   </div>
 </script>
+
+	<script type='text/x-handlebars' data-template-name='products/index'>
+		<p class="text-muted">Choose a product from those on the left!</p>
+	</script>
 	</body>
 </html>

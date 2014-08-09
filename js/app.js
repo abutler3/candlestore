@@ -6,10 +6,12 @@ App.Router.map(function() {
   this.resource('about');
   this.resource('bio');
 	this.resource('credits', { path: '/thanks' });
-	this.resource('products');
-	this.resource('product', { path: '/products/:title' });
-	this.resource('contacts');
-	this.resource('contact', { path: '/contacts/:name' });
+	this.resource('products', function() {
+		this.resource('product', { path: '/:title' });
+	});
+  this.resource('contacts', function() {
+  	this.resource('contact', { path: '/:name' });
+  });
 });
 
 
@@ -21,7 +23,7 @@ App.IndexController = Ember.Controller.extend({
 	}.property()
 });
 
-App.AboutController = Ember.Controller.extend({
+App.ContactsIndexController = Ember.Controller.extend({
   contactName: 'Amber',
   avatar: 'http://upload.wikimedia.org/wikipedia/commons/7/7f/Laptop_multimedia.jpg',
   open: function() {
