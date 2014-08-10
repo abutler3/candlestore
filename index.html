@@ -104,18 +104,27 @@
 			</div>
 		</div>
 	</script>
-	<script type='text/x-handlebars' data-template-name='product'>
-		<div class="row">
-			<div class="col-md-7">
-				<h1>{{title}}</h1>
-				<h3 class="text-success">${{price}}</h3>
-				<p class="text-muted">{{description}}</p>
-			</div>
-			<div class="col-md-5">
-				<img {{bind-attr src='image'}} class='img-thumbnail img-rounded' width="200" />
-				<p><button class='btn btn-success'>Buy for ${{price}}</button></p>
-			</div>
-	</script>
+  <script type='text/x-handlebars' data-template-name='product'>
+    <div class='row'>
+      <div class='col-sm-7'>
+        <h2>{{title}}</h2>
+        <h3 class='text-success'>${{price}}</h3>
+        <p class='text-muted'>{{description}}</p>
+        <p>Finely crafted by {{#link-to 'contact' crafter}}{{crafter.name}}{{/link-to}}.</p>
+        <h3>Reviews</h3>
+        <ul>
+        {{#each reviews}}
+          <li><p>{{text}}</p></li>
+        {{else}}
+          <li><p class='text-muted'><em>No reviews yet. Be the first to write one!</em></p></li>
+        {{/each}}
+        </ul>
+      </div>
+      <div class='col-sm-5'>
+        <img {{bind-attr src='image'}} class='img-thumbnail img-rounded'/>
+      </div>
+    </div>
+  </script>
 	 <script type='text/x-handlebars' data-template-name='contacts'>
     <h1>Contacts</h1>
 		<div class='row'>
@@ -141,6 +150,12 @@
     <div class='col-sm-7'>
       <h2>{{name}}</h2>
       <p>{{about}}</p>
+			<h3>Products</h3>
+			<ul>
+			{{#each products}}
+			  <li>{{#link-to 'product' this}}{{title}}{{/link-to}}</li>
+			{{/each}}
+			</ul>
     </div>
   </div>
 </script>

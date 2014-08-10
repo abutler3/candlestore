@@ -35,11 +35,13 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 
 App.Product = DS.Model.extend({
-	title: DS.attr('string'),
+  title: DS.attr('string'),
   price: DS.attr('number'),
   description: DS.attr('string'),
   isOnSale: DS.attr('boolean'),
-  image: DS.attr('string')
+  image: DS.attr('string'),
+  reviews: DS.hasMany('review', { async: true }),
+  crafter: DS.belongsTo('contact')
 });
 
 App.Product.FIXTURES = [
@@ -49,7 +51,9 @@ App.Product.FIXTURES = [
 		price: 4,
 		description: 'Flint is a hard, sedimentary cryptocrystalline form of the mineral quartz, categorized as a variety of chert.',
 		isOnSale: true,
-		image: 'http://img1.sunset.timeinc.net/sites/default/files/image/2000/11/candles-carved-m.jpg'
+		image: 'http://img1.sunset.timeinc.net/sites/default/files/image/2000/11/candles-carved-m.jpg',
+		reviews: [100,101],
+		crafter: 200
 	},
 	{
 		id: 2,
@@ -57,7 +61,9 @@ App.Product.FIXTURES = [
 		price: 6,
 		description: 'Easily combustible small sticks or twigs used for starting a fire.',
 		isOnSale: false,
-		image: 'http://www.pkgreenshop.co.uk/ekmps/shops/123pravi/images/real-flame-colour-changing-mood-candle-[3]-804-p.jpg'
+		image: 'http://www.pkgreenshop.co.uk/ekmps/shops/123pravi/images/real-flame-colour-changing-mood-candle-[3]-804-p.jpg',
+		reviews: [],
+		crafter: 201
 	}
 ];
 
@@ -65,21 +71,24 @@ App.Product.FIXTURES = [
 App.Contact = DS.Model.extend({
 	name: DS.attr('string'),
   about: DS.attr('string'),
-  avatar: DS.attr('string')
+  avatar: DS.attr('string'),
+	products: DS.hasMany('product', { async: true })
 });
 
 App.Contact.FIXTURES = [
   {
-		id: 1,
+		id: 200,
     name: 'Giamia',
     about: 'Although Giamia came from a humble spark of lightning, he quickly grew to be a great craftsman, providing all the warming instruments needed by those close to him.',
-    avatar: 'http://upload.wikimedia.org/wikipedia/commons/7/7f/Laptop_multimedia.jpg'
+    avatar: 'http://upload.wikimedia.org/wikipedia/commons/7/7f/Laptop_multimedia.jpg',
+		products: [1]
   },
   {
-		id: 2,
+		id: 201,
     name: 'Anostagia',
     about: 'Knowing there was a need for it, Anostagia drew on her experience and spearheaded the Flint & Flame storefront. In addition to coding the site, she also creates a few products available in the store.',
-    avatar: 'http://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_bw.jpg'
+    avatar: 'http://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_bw.jpg',
+		products: [2]
   }
 ];
 
@@ -103,3 +112,20 @@ App.ContactRoute = Ember.Route.extend({
      return this.store.find('contact', params.contact_id);;
   }
 });
+
+App.Review = DS.Model.extend({
+	text: DS.attr('string'),
+	reviewedAt: DS.attr('date'),
+	product: DS.belongsTo('product')
+});
+
+App.Review.FIXTURES = [
+	{ id: 100,
+		product: 1,
+		text: "Great long-lasting scent!"
+	},
+	{ id: 101,
+		product: 1,
+		text: "The wick fell apart on mine and it was replaced at no charge."
+	}
+];
