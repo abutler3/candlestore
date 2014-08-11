@@ -15,20 +15,34 @@ App.Router.map(function() {
 });
 
 
-App.IndexController = Ember.Controller.extend({
-	productsCount: 6,
+App.IndexController = Ember.ArrayController.extend({
+	productsCount: Ember.computed.alias('length'),
 	logo: 'http://www.ikea.com/PIAimages/0092092_PE228416_S5.JPG',
-	time: function() {
-		return (new Date()).toDateString()
-	}.property()
+	onSale: function() {
+		return this.filterBy('isOnSale').slice(0,3);
+	}.property('@each.isOnSale')
 });
 
-App.ContactsIndexController = Ember.Controller.extend({
-  contactName: 'Amber',
+
+
+App.IndexRoute = Ember.Route.extend({
+	model: function() {
+		return this.store.findAll('product');
+	}
+});
+
+App.ContactsIndexController = Ember.ObjectController.extend({
+  contactName:  Ember.computed.alias('name'),
   avatar: 'http://upload.wikimedia.org/wikipedia/commons/7/7f/Laptop_multimedia.jpg',
   open: function() {
     return ((new Date()).getDay() === 0) ? "Closed" : "Open";
   }.property()
+});
+
+App.ContactsIndexRoute = Ember.Route.extend({
+	model: function() {
+    return this.store.find('contact', 201);
+  }
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
@@ -64,6 +78,46 @@ App.Product.FIXTURES = [
 		image: 'http://www.pkgreenshop.co.uk/ekmps/shops/123pravi/images/real-flame-colour-changing-mood-candle-[3]-804-p.jpg',
 		reviews: [],
 		crafter: 201
+	},
+	{
+		id: 3,
+		title: 'Birch Bark Shaving',
+		price: 3,
+		description: 'Easily combustible small sticks or twigs used for starting a fire.',
+		isOnSale: true,
+		image: 'http://cdn1.feelunique.com/img/products/9829/Elemis_The_Big_Glow_Twilight_Candle_Refill_1367306186.png',
+		reviews: [],
+		crafter: 200
+	},
+	{
+		id: 4,
+		title: 'Bow Drill',
+		price: 8,
+		description: 'Just keeps going and going',
+		isOnSale: true,
+		image: 'http://www.ikea.com/PIAimages/0092092_PE228416_S5.JPG',
+		reviews: [],
+		crafter: 201
+	},
+	{
+		id: 5,
+		title: 'Matches',
+		price: 7,
+		description: 'Orange Organge everywhere',
+		isOnSale: false,
+		image: 'http://www.thecandleselection.co.uk/media/catalog/product/cache/1/image/5e06319eda06f020e43594a9c230972d/f/i/file_41_44.jpg',
+		reviews: [],
+		crafter: 200
+	},
+	{
+		id: 6,
+		title: 'Tinder',
+		price: 5,
+		description: 'Yellow Yellow everywhere',
+		isOnSale: false,
+		image: 'http://www.papstar-shop.fr/papstar/prodpic/Bougie-boule-rond-8-cm-jaune-brosse-15653_b_0.JPG',
+		reviews: [],
+		crafter: 201
 	}
 ];
 
@@ -97,6 +151,10 @@ App.ProductsRoute = Ember.Route.extend({
 	model: function() {
 		return this.store.findAll('product');
 	}
+});
+
+App.ProductsController = Ember.ArrayController.extend({
+	sortProperties: ['title']
 });
 
 App.ContactsRoute = Ember.Route.extend({

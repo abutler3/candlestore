@@ -65,11 +65,19 @@
 
 	<script type='text/x-handlebars' id='index'>
 		<h1>Welcome to Candles Are Me</h1>
-		<p>There are {{productsCount}} products availble right now</p>
-		<p>As of {{time}}</p>
 		<img {{bind-attr src='logo'}} alt='Logo' width="200"/>
-		<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
-
+		<p>{{#link-to 'products' class="btn btn-primary btn-lg"}}Browse our {{productsCount}} available products &raquo;{{/link-to}}</p>
+		<h3>On Sale This Week</h3>
+		{{#each onSale}}
+			<div class="col-sm-4">
+				<img {{bind-attr src="image"}} class="img-thumbnail col-sm-5">
+				<div class="col-sm-7">
+					<h2>{{title}}</h2>
+					<p class="product-description">{{description}}</p>
+					<p>{{#link-to 'product' this class="btn btn-success"}}Buy for ${{price}}{{/link-to}}</p>
+				</div>
+			</div>
+		{{/each}}
 	</script>
 	<script type='text/x-handlebars' id='contacts/index'>
 		<h1>What are Candles Are Me about?</h1>
