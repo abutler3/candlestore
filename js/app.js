@@ -8,6 +8,8 @@ App.Router.map(function() {
 	this.resource('credits', { path: '/thanks' });
 	this.resource('products', function() {
 		this.resource('product', { path: '/:product_id' });
+		this.route('onsale');
+		this.route('deals');
 	});
   this.resource('contacts', function() {
   	this.resource('contact', { path: '/:contact_id' });
@@ -155,6 +157,27 @@ App.ProductsRoute = Ember.Route.extend({
 
 App.ProductsController = Ember.ArrayController.extend({
 	sortProperties: ['title']
+});
+
+App.ProductsOnsaleRoute = Ember.Route.extend({
+  model: function(){
+		return this.modelFor('products').filterBy('isOnSale');
+  }
+});
+
+App.ProductsIndexRoute = Ember.Route.extend({
+  model: function(){
+    return this.store.findAll('product');
+  }
+});
+
+
+App.ProductsDealsRoute = Ember.Route.extend({
+  model: function(){
+    return this.modelFor('products').filter(function(product){
+      return product.get('price') < 4;
+    });
+  }
 });
 
 App.ContactsRoute = Ember.Route.extend({
