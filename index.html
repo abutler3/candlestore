@@ -69,16 +69,18 @@
 		<p>{{#link-to 'products' class="btn btn-primary btn-lg"}}Browse our {{productsCount}} available products &raquo;{{/link-to}}</p>
 		<h3>On Sale This Week</h3>
 		{{#each onSale}}
-			<div class="col-sm-4">
-				<img {{bind-attr src="image"}} class="img-thumbnail col-sm-5">
-				<div class="col-sm-7">
-					{{#link-to 'products.onsale'}}On Sale{{/link-to}}
-					<h2>{{title}}</h2>
-					<p class="product-description">{{description}}</p>
-					<p>{{#link-to 'product' this class="btn btn-success"}}Buy for ${{price}}{{/link-to}}</p>
-				</div>
-			</div>
+			{{product-details product=this classNames='col-sm-4'}}
 		{{/each}}
+	</script>
+
+	<script type='text/x-handlebars' data-template-name='components/product-details'>
+			<img {{bind-attr src="product.image"}} class="img-thumbnail col-sm-5">
+			<div class="col-sm-7">
+				{{#link-to 'products.onsale'}}On Sale{{/link-to}}
+				<h2>{{product.title}}</h2>
+				<p class="product-description">{{description}}</p>
+				<p>{{#link-to 'product' this class="btn btn-success"}}Buy for ${{product.price}}{{/link-to}}</p>
+			</div>
 	</script>
 	<script type='text/x-handlebars' id='contacts/index'>
 		<h1>What are Candles Are Me about?</h1>
@@ -210,15 +212,7 @@
 	  <h1>Todays Product Deals!</h1>
 	  <ul class='list-unstyled'>
 	    {{#each}}
-	      <li class="row">
-	        <img {{bind-attr src='image'}} class='img-thumbnail col-sm-5' />
-	        <div class="col-sm-7">
-	          <h2>{{title}}</h2>
-	          <p class="product-description">{{description}}</p>
-	          <p>{{#link-to 'product' this class='btn btn-success'}}
-	            Buy for ${{price}}{{/link-to}}</p>
-	        </div>
-	      </li>
+	        {{product-details product=this tagName='li' classNames="row"}}
 	    {{/each}}
 	  </ul>
 	</script>
