@@ -80,6 +80,9 @@
 				<h2>{{product.title}}</h2>
 				<p class="product-description">{{product.description}}</p>
 				<p>{{#link-to 'product' this class="btn btn-success"}}Buy for ${{product.price}}{{/link-to}}</p>
+				{{#if hasReviews}}
+					<p class='text-muted'>Read all reviews ({{reviewsCount}}).</p>
+				{{/if}}
 			</div>
 	</script>
 	<script type='text/x-handlebars' id='contacts/index'>
