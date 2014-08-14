@@ -196,6 +196,12 @@ App.ProductDetailsComponent = Ember.Component.extend({
 	}.property('reviewsCount')
 });
 
+App.ProductView = Ember.View.extend({
+	classNames: ['row'],
+	classNameBindings: ['isOnSale'],
+	isOnSale: Ember.computed.alias('controller.isOnSale')
+});
+
 App.ContactsRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('contact');
