@@ -47,6 +47,15 @@ App.ContactsIndexRoute = Ember.Route.extend({
   }
 });
 
+
+App.ContactDetailsComponent = Ember.Component.extend({
+  productsCount: Ember.computed.alias('contact.products.length'),
+  isProductive: function() {
+    return this.get('productsCount') > 0;
+  }.property('productsCount')
+	// # BUG - Works if 0, but will only show each maker with 1 candle
+});
+
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 
@@ -200,6 +209,7 @@ App.ContactRoute = Ember.Route.extend({
      return this.store.find('contact', params.contact_id);;
   }
 });
+
 
 App.Review = DS.Model.extend({
 	text: DS.attr('string'),
