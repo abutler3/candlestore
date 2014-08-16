@@ -167,17 +167,18 @@
     <div class='col-sm-7'>
       <h2>{{name}}</h2>
       <p>{{about}}</p>
-			<h3>Products</h3>
-			<ul>
-			{{#each products}}
-			  <li>{{#link-to 'product' this}}{{title}}{{/link-to}}</li>
-			{{/each}}
-			</ul>
+			<{{render 'contact/products' products}}
+
     </div>
   </div>
 </script>
 <script type='text/x-handlebars' data-template-name='contact/products'>
-
+  <h3>Products</h3>
+  <ul>
+    {{#each}}
+      <li>{{#link-to 'product' this}}{{title}}{{/link-to}}</li>
+    {{/each}}
+  </ul>
 </script>
 <script type='text/x-handlebars' data-template-name='components/contact-details'>
 	<div class='col-sm-9'>
