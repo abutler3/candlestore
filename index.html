@@ -124,14 +124,14 @@
         <h3 class='text-success'>${{price}}</h3>
         <p class='text-muted'>{{description}}</p>
         <p>Finely crafted by {{#link-to 'contact' crafter}}{{crafter.name}}{{/link-to}}.</p>
-        {{partial 'reviews'}}
+        {{render 'reviews' reviews}}
       </div>
       <div class='col-sm-5'>
         <img {{bind-attr src='image'}} class='img-thumbnail img-rounded'/>
       </div>
   </script>
 
-	<script type='text/x-handlebars' data-template-name='_reviews'>
+	<script type='text/x-handlebars' data-template-name='reviews'>
 		<h3>Reviews</h3>
 		<ul>
 		{{#each reviews}}
@@ -176,7 +176,9 @@
     </div>
   </div>
 </script>
+<script type='text/x-handlebars' data-template-name='contact/products'>
 
+</script>
 <script type='text/x-handlebars' data-template-name='components/contact-details'>
 	<div class='col-sm-9'>
     <h2>About {{contact.name}}</h2>
