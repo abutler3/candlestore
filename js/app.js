@@ -168,6 +168,25 @@ App.ProductsController = Ember.ArrayController.extend({
 	sortProperties: ['title']
 });
 
+App.ProductController = Ember.ObjectController.extend({
+	text: '',
+	actions: {
+		createReview: function() {
+			var review = this.store.createRecord('review', {
+				text: this.get('text'),
+				product: this.get('model'),
+				reviewedAt: new Date()
+			});
+			var controller = this;
+			review.save().then(function(review){
+				controller.set('text', '');
+				controller.get('model.reviews').addObject(review);
+			});
+
+		}
+	}
+});
+
 App.ProductsOnsaleRoute = Ember.Route.extend({
   model: function(){
 		return this.modelFor('products').filterBy('isOnSale');
