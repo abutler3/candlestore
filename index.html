@@ -125,6 +125,7 @@
         <p class='text-muted'>{{description}}</p>
         <p>Finely crafted by {{#link-to 'contact' crafter}}{{crafter.name}}{{/link-to}}.</p>
         {{render 'reviews' reviews}}
+				{{contact-details contact=crafter classNames='row'}}
 				<div class="new-review">
 					<h3>Review {{title}}</h3>
 					{{#if text}}
@@ -143,13 +144,12 @@
 	<script type='text/x-handlebars' data-template-name='reviews'>
 		<h3>Reviews</h3>
 		<ul>
-		{{#each reviews}}
+		{{#each}}
 			<li><p>{{text}}</p></li>
 		{{else}}
 			<li><p class='text-muted'><em>No reviews yet. Be the first to write one!</em></p></li>
 		{{/each}}
 		</ul>
-		{{contact-details contact=crafter classNames='row'}}
 	</script>
 	 <script type='text/x-handlebars' data-template-name='contacts'>
     <h1>Contacts</h1>
