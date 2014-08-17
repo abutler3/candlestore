@@ -252,8 +252,3 @@ App.Review.FIXTURES = [
 		text: "The wick fell apart on mine and it was replaced at no charge."
 	}
 ];
-
-App.ReviewsController = Ember.ArrayController.extend({
-	sortProperties: ['reviewedAt'],
-	sortAscending: false
-});

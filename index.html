@@ -134,13 +134,15 @@
 					<br>
 					<button {{action 'createReview'}} class='btn-primary'>Review</button>
 				</div>
+
+        {{partial 'reviews'}}
       </div>
       <div class='col-sm-5'>
         <img {{bind-attr src='image'}} class='img-thumbnail img-rounded'/>
       </div>
   </script>
 
-	<script type='text/x-handlebars' data-template-name='reviews'>
+	<script type='text/x-handlebars' data-template-name='_reviews'>
 		<h3>Reviews</h3>
 		<ul>
 		{{#each reviews}}
@@ -189,6 +191,7 @@
     {{/each}}
   </ul>
 </script>
+
 <script type='text/x-handlebars' data-template-name='components/contact-details'>
 	<div class='col-sm-9'>
     <h2>About {{contact.name}}</h2>
