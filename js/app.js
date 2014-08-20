@@ -169,19 +169,18 @@ App.ProductsController = Ember.ArrayController.extend({
 });
 
 App.ProductController = Ember.ObjectController.extend({
-  text: '',
+  review: function() {
+		return this.store.createRecord('review', {
+			product: this.get('model')
+		});
+	}.property('model'),
   selectedRating: 5,
   ratings: [1,2,3,4,5],
   actions: {
     createReview: function(){
-      var review = this.store.createRecord('review', {
-        text: this.get('text'),
-        product: this.get('model'),
-        reviewedAt: new Date()
-      });
       var controller = this;
-      review.save().then(function() {
-        controller.set('text', '');
+      this.get('review').set('reviewedAt', new Date());
+			this.get('review').save().then(function(review) {
         controller.get('model.reviews').addObject(review);
       });
     },
@@ -191,7 +190,8 @@ App.ProductController = Ember.ObjectController.extend({
       product.get('ratings').addObject(selectedRating);
       product.save();
     }
-  }
+  },
+	isNotReviewed: Ember.computed.alias('review.isNew')
 });
 
 App.ProductsOnsaleRoute = Ember.Route.extend({
