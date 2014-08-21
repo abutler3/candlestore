@@ -246,17 +246,20 @@ App.ContactRoute = Ember.Route.extend({
 App.Review = DS.Model.extend({
 	text: DS.attr('string'),
 	reviewedAt: DS.attr('date'),
-	product: DS.belongsTo('product')
+	product: DS.belongsTo('product'),
+	rating: DS.attr('number')
 });
 
 App.Review.FIXTURES = [
 	{ id: 100,
 		product: 1,
-		text: "Great long-lasting scent!"
+		text: "Great long-lasting scent!",
+		rating: 4
 	},
 	{ id: 101,
 		product: 1,
-		text: "The wick fell apart on mine and it was replaced at no charge."
+		text: "The wick fell apart on mine and it was replaced at no charge.",
+		rating: 
 	}
 ];
 
