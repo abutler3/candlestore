@@ -259,11 +259,28 @@ App.Review.FIXTURES = [
 	{ id: 101,
 		product: 1,
 		text: "The wick fell apart on mine and it was replaced at no charge.",
-		rating: 
+		rating: 5
 	}
 ];
 
 App.ReviewsController = Ember.ArrayController.extend({
 	sortProperties: ['reviewedAt'],
 	sortAscending: false
+});
+
+// #TODOReview have a max-height to show the first two lines, then expands to full height when
+// isExpanded is present
+
+App.ReviewView = Ember.View.extend({
+	isExpanded: false,
+	classNameBindings: ['isExpanded', 'readMore'],
+	click: function() {
+		this.toggleProperty('isExpanded')
+	},
+	readMore: Ember.computed.gt('length', 140)
+});
+
+Ember.Handlebars.registerBoundHelper('markdown', function(text) {
+	return text;
+	// return new Handlebars.SafeString(markdown.toHTML(text));
 });

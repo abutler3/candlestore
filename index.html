@@ -155,7 +155,12 @@
 		<h3>Reviews</h3>
 		<ul>
 		{{#each}}
-			<li><p>{{text}}</p></li>
+			{{#view 'App.ReviewView' tag='li' length=text.length}}
+				<div class="content">{{text}}</div>
+				<span class="expand text-success">
+					Read {{#if view.isExpanded}}Less{{else}}More{{/if}}
+				</span>
+			{{/view}}
 		{{else}}
 			<li><p class='text-muted'><em>No reviews yet. Be the first to write one!</em></p></li>
 		{{/each}}
